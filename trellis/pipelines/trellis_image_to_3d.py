@@ -281,8 +281,15 @@ class TrellisImageTo3DPipeline(Pipeline):
         torch.manual_seed(seed)
         coords = self.sample_sparse_structure(cond, num_samples, sparse_structure_sampler_params)
         slat = self.sample_slat(cond, coords, slat_sampler_params)
-        return self.decode_slat(slat, formats)
-
+        offload_model_names = ['image_cond_model', 'sparse_structure_flow_model', 'slat_flow_model']
+        for model_name in offload_model_names:
+            self.models[model_name].to(torch.device("cpu"))
+        torch.cuda.empty_cache()
+        ret = self.decode_slat(slat, formats)
+        for model_name in offload_model_names:
+            self.models[model_name].to(torch.device("cuda"))
+        return ret
+    
     @contextmanager
     def inject_sampler_multi_image(
         self,
