@@ -116,14 +116,16 @@ pip intall -e .
 ```
 5. Build Diffoctreerast
 ```
-cd /tmp/extensions/diffoctreerast
-pip install -e .
+mkdir -p /tmp/extensions
+git clone --recurse-submodules https://github.com/JeffreyXiang/diffoctreerast.git /tmp/extensions/diffoctreerast
+pip install /tmp/extensions/diffoctreerast
 ```
 
 6. Build Diff Gaussian Rasterization
 ```
-cd /tmp/extensions/mip-splatting/submodules/diff-gaussian-rasterization
-pip install -e .
+mkdir -p /tmp/extensions
+git clone https://github.com/autonomousvision/mip-splatting.git /tmp/extensions/mip-splatting
+pip install /tmp/extensions/mip-splatting/submodules/diff-gaussian-rasterization/
 ```
 
 Now get back into the Trellis folder you cloned.
