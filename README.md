@@ -86,12 +86,7 @@
 
 **If you have a RTX 5090 you need to follow these steps**
 
-1. Create your conda environment.
-```
-conda create --name trellis python==3.10
-```
-
-2. Check that you are under CUDA 12.8
+1. Check that you are under CUDA 12.8
 
 ```nvcc --version```
 
